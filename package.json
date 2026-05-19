@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\"",
-    "prepare": "husky"
+    "dev": "nodemon backend/routes/quizRoutes.js"
   },
   "repository": {
     "type": "git",
@@ -14,7 +14,7 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs",
+  "type": "module",
   "bugs": {
     "url": "https://github.com/J8rl-Chik/economic-quiz/issues"
   },
@@ -27,6 +27,7 @@
     "eslint-config-prettier": "^10.1.8",
     "globals": "^17.6.0",
     "husky": "^9.1.7",
+    "nodemon": "^3.1.14",
     "prettier": "3.8.3"
   }
 }
