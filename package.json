@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\"",
+    "prepare": "husky"
   },
   "repository": {
     "type": "git",
@@ -17,10 +18,5 @@
   "bugs": {
     "url": "https://github.com/J8rl-Chik/economic-quiz/issues"
   },
-  "homepage": "https://github.com/J8rl-Chik/economic-quiz#readme",
-  "devDependencies": {
-    "@commitlint/cli": "^21.0.1",
-    "@commitlint/config-conventional": "^21.0.1",
-    "husky": "^9.1.7"
-  }
+  "homepage": "https://github.com/J8rl-Chik/economic-quiz#readme"
 }
