@@ -2,9 +2,9 @@ import http from "node:http";
 
 import readQuizFile from "../services/readQuizFile.js";
 
-const SERVER = http.createServer(async (request, response) => {
-  const QUIZZES = await readQuizFile();
+const QUIZZES = await readQuizFile();
 
+const SERVER = http.createServer(async (request, response) => {
   response.writeHead(200, {
     "Content-Type": "application/json; charset=utf-8",
   });
