@@ -4,6 +4,7 @@ import { defineConfig } from "eslint/config";
 import eslintConfigPrettier from "eslint-config-prettier/flat";
 
 export default defineConfig([
+  eslintConfigPrettier,
   {
     files: ["**/*.{js,mjs,cjs}"],
     plugins: { js },
@@ -11,9 +12,16 @@ export default defineConfig([
     languageOptions: { globals: { ...globals.browser, ...globals.node } },
     rules: {
       "lines-between-class-members": "error",
-      "arrow-parens": "error",
+      "object-curly-newline": [
+        "error",
+        {
+          ObjectExpression: { multiline: true, minProperties: 2 },
+          ObjectPattern: { multiline: true, minProperties: 2 },
+          ImportDeclaration: { multiline: true, minProperties: 2 },
+          ExportDeclaration: { multiline: true, minProperties: 2 },
+        },
+      ],
     },
   },
   { files: ["**/*.js"], languageOptions: { sourceType: "module" } },
-  eslintConfigPrettier,
 ]);
