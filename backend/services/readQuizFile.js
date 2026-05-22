@@ -1,6 +1,7 @@
 import fs from "node:fs/promises";
 
 const QUIZ_FILE_PATH = "./backend/data/quiz.json";
+
 const readQuizFile = async () => {
   const quizData = await fs.readFile(QUIZ_FILE_PATH, "utf-8");
   const quizzes = JSON.parse(quizData);

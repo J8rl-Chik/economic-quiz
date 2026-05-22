@@ -17,6 +17,6 @@ SERVER.on("listening", () => {
   console.log("Server is running on http://localhost:8080");
 });
 
-SERVER.on("error", (err) => {
+SERVER.on("error", err => {
   console.error("Server error:", err);
 });
