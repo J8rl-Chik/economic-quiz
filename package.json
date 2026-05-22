@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\"",
-    "dev": "nodemon backend/routes/quizRoutes.js"
+    "dev": "nodemon backend/controllers/quizController.js"
   },
   "repository": {
     "type": "git",
