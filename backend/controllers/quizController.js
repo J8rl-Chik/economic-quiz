@@ -1,33 +1,17 @@
-import http from "node:http";
+import loadQuizzes from '../services/loadQuizzes.js';
 
-import loadQuizzes from "../services/loadQuizzes.js";
+/** @type {import('../../types.js').HttpHandler} */
+const quizController = (request, response) => {
+  loadQuizzes()
+    .then(quizzes => {
+      response.writeHead(200, {'Content-Type': 'application/json; charset=utf-8'});
+      response.end(JSON.stringify(quizzes));
+    })
+    .catch(error => {
+      console.error('퀴즈 불러오기 에러:', error);
+      response.writeHead(500, {'Content-Type': 'text/plain; charset=utf-8'});
+      response.end('서버 내부 에러가 발생했습니다.');
+    });
+};
 
-let quizzes = [];
-
-try {
-  quizzes = await loadQuizzes();
-} catch (error) {
-  console.error(error);
-  process.exit(1);
-}
-
-const server = http.createServer();
-
-server.on("request", (request, response) => {
-  response.writeHead(200, {
-    "Content-Type": "application/json; charset=utf-8",
-  });
-  response.end(JSON.stringify(quizzes));
-});
-
-const SERVER_PORT = 8080;
-
-server.on("listening", () => {
-  console.log(`Server is running on http://localhost:${SERVER_PORT}`);
-});
-
-server.on("error", error => {
-  console.error("Server error:", error);
-});
-
-server.listen(SERVER_PORT);
+export default quizController;
