@@ -1,8 +1,7 @@
 import React from "react";
 import question from "../data/questions.js";
 import { useState } from "react";
-import Ox from "./Ox.jsx";
-import Multiple from "./Multiple.jsx";
+import Button from "./QuizButton.jsx";
 import Result from "./Reslut.jsx";
 
 function QuizQuestion({ start }) {
@@ -16,21 +15,21 @@ function QuizQuestion({ start }) {
 
   const isEnd = currentQ >= question.length;
 
-  const chk_answer = (index) => {
+  const chk_answer = index => {
     const chk = index + 1 === QuizQuestion.answer;
 
-    setInfo((prev) => ({
+    setInfo(prev => ({
       current: chk ? prev.current + 1 : prev.current,
       wrong: chk ? prev.wrong : prev.wrong + 1,
       isCorrect: chk ? true : false,
     }));
 
-    setAnswered((prev) => !prev);
+    setAnswered(prev => !prev);
   };
 
   const handleNext = () => {
-    setCurrentQ((prev) => prev + 1);
-    setAnswered((prev) => !prev);
+    setCurrentQ(prev => prev + 1);
+    setAnswered(prev => !prev);
   };
 
   const handleEnd = () => {
@@ -52,11 +51,7 @@ function QuizQuestion({ start }) {
         <p>{QuizQuestion.question}</p>
       </div>
       <div>
-        {QuizQuestion.type == "ox" ? (
-          <Ox choices={QuizQuestion.choices} onAnswer={chk_answer} />
-        ) : (
-          <Multiple choices={QuizQuestion.choices} onAnswer={chk_answer} />
-        )}
+        <Button choices={QuizQuestion.choices} onAnswer={chk_answer} />
       </div>
 
       {answered && (

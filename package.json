@@ -2,10 +2,14 @@
   "name": "economic-quiz",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "private": true,
+  "workspaces": [
+    "frontend",
+    "backend"
+  ],
   "scripts": {
-    "test": "echo \"Error: no test specified\"",
-    "dev": "nodemon backend/controllers/quizController.js"
+    "dev:frontend": "npm run dev -w frontend",
+    "dev:backend": "npm run dev -w backend"
   },
   "repository": {
     "type": "git",
@@ -14,7 +18,6 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "module",
   "bugs": {
     "url": "https://github.com/J8rl-Chik/economic-quiz/issues"
   },
@@ -27,7 +30,6 @@
     "eslint-config-prettier": "^10.1.8",
     "globals": "^17.6.0",
     "husky": "^9.1.7",
-    "nodemon": "^3.1.14",
     "prettier": "3.8.3"
   }
 }
