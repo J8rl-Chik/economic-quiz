@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import QuizQuestion from "./QuizQuestion.jsx";
+import QuizContainer from "./QuizContainer.jsx";
 
 function Quiz() {
   const [start, setStart] = useState(false);
@@ -13,7 +13,7 @@ function Quiz() {
     );
   }
 
-  return <QuizQuestion start={setStart} />;
+  return <QuizContainer start={setStart} />;
 }
 
 export default Quiz;

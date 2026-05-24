@@ -1,20 +1,29 @@
 import http from "node:http";
-import readQuizFile from "../services/readQuizFile.js";
+import router from "../router.js";
+import "../controllers/questionsController.js";
 
-const QUIZZES = await readQuizFile();
+const SERVER = http.createServer((req, res) => {
+  res.setHeader("Access-Control-Allow-Origin", "http://localhost:5173");
+  res.setHeader("Content-Type", "application/json; charset=utf-8");
 
-const SERVER = http.createServer((request, response) => {
-  if (request.method === "GET" && request.url === "/api/questions") {
-    response.writeHead(200, {
-      "Content-Type": "application/json; charset=utf-8",
-      "Access-Control-Allow-Origin": "http://localhost:5173",
-    });
-    response.end(JSON.stringify(QUIZZES));
+  res.json = data => {
+    res.writeHead(res.statusCode || 200);
+    res.end(JSON.stringify(data));
+  };
+
+  res.status = code => {
+    res.statusCode = code;
+    return res;
+  };
+
+  const route = router.resolve(req.method, req.url);
+  if (route) {
+    req.params = route.params;
+    route.handler(req, res);
     return;
   }
 
-  response.writeHead(404);
-  response.end();
+  res.status(404).json({ message: "Not Found" });
 });
 
 SERVER.listen(8080);
