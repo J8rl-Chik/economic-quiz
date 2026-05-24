@@ -4,13 +4,19 @@ import quizRouter from './routers/quizRouter.js';
 
 const server = http.createServer();
 
-server.on('request', (request, response) => {
+server.on('request', async (request, response) => {
   const {method, url} = request;
 
   if (!method || !url) {
     response.writeHead(400, {'Content-Type': 'text/plain'});
     response.end('Invalid request');
 
+    return;
+  }
+
+  if (!quizRouter[method]) {
+    response.writeHead(405, {'Content-Type': 'text/plain'});
+    response.end('Method Not Allowed');
     return;
   }
 
@@ -22,7 +28,7 @@ server.on('request', (request, response) => {
     return;
   }
 
-  controller(request, response);
+  await controller(request, response);
 });
 
 const SERVER_PORT = 8080;
