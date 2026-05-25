@@ -22,6 +22,6 @@
  */
 
 /** @typedef {(request: import("node:http").IncomingMessage, response: import("node:http").ServerResponse) => Promise<void>} HttpHandler */
-/** @typedef {Object.<string, Object.<string, HttpHandler>>} QuizRouter */
+/** @typedef {Record.<'GET' | 'POST' | 'PUT' | 'DELETE', Object.<string, HttpHandler>>} QuizRouter */
 
 export {};

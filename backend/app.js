@@ -5,22 +5,40 @@ import quizRouter from './routers/quizRouter.js';
 const server = http.createServer();
 
 server.on('request', async (request, response) => {
-  const {method, url} = request;
+  /**
+   * @param {string} method
+   * @returns {method is keyof typeof quizRouter}
+   */
+  const isValidMethod = method => {
+    return method in quizRouter;
+  };
 
-  if (!method || !url) {
+  const {method: rawMethod, url} = request;
+
+  if (!rawMethod || !url) {
     response.writeHead(400, {'Content-Type': 'text/plain'});
     response.end('Invalid request');
+    return;
+  }
+
+  const method = rawMethod.toUpperCase();
+
+  if (!isValidMethod(method)) {
+    response.writeHead(405);
+    response.end('Method Not Allowed');
 
     return;
   }
 
-  if (!quizRouter[method]) {
+  const forcedMethod = method;
+
+  if (!quizRouter[forcedMethod]) {
     response.writeHead(405, {'Content-Type': 'text/plain'});
     response.end('Method Not Allowed');
     return;
   }
 
-  const controller = quizRouter[method][url];
+  const controller = quizRouter[forcedMethod][url];
 
   if (!controller) {
     response.writeHead(404, {'Content-Type': 'text/plain'});
