@@ -2,27 +2,27 @@
 
 /** @param {Route} methodRoute */
 const createRouter = methodRoute => {
-  /** @type {Object<string, { staticRoute: StaticRoute, dynamicRoutes: DynamicRoute }>} */
+  /** @type {Object<string, { staticRoute: StaticRoute, dynamicRoute: DynamicRoute }>} */
   const router = {};
 
   for (const [method, route] of Object.entries(methodRoute)) {
     /** @type {StaticRoute} */
     const staticRoute = {};
     /** @type {DynamicRoute} */
-    const dynamicRoutes = [];
+    const dynamicRoute = {};
 
     for (const [uri, controller] of Object.entries(route)) {
       if (uri.includes(':')) {
         const paramNames = [...uri.matchAll(/:([^/]+)/g)].map(m => m[1]);
         const regex = new RegExp(`^${uri.replace(/:([^/]+)/g, '([^/]+)')}$`);
 
-        dynamicRoutes.push({regex, paramNames, controller});
+        dynamicRoute[uri] = {regex, paramNames, controller};
       } else {
         staticRoute[uri] = controller;
       }
     }
 
-    router[method] = {staticRoute, dynamicRoutes};
+    router[method] = {staticRoute, dynamicRoute};
   }
 
   return {
@@ -44,11 +44,12 @@ const createRouter = methodRoute => {
         return {controller: route.staticRoute[url]};
       }
 
-      for (const {regex, paramNames, controller} of route.dynamicRoutes) {
-        const urlMatch = url.match(regex);
+      for (const uri of Object.keys(route.dynamicRoute)) {
+        const {regex, paramNames, controller} = route.dynamicRoute[uri];
+        const matchResults = url.match(regex);
 
-        if (urlMatch) {
-          const params = Object.fromEntries(paramNames.map((name, i) => [name, urlMatch[i + 1]]));
+        if (matchResults) {
+          const params = Object.fromEntries(paramNames.map((name, i) => [name, matchResults[i + 1]]));
 
           return {controller, params};
         }

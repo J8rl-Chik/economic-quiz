@@ -26,5 +26,5 @@
 /** @typedef {(request: IncomingMessage, response: ServerResponse, params?: Record<string, string>) => Promise<void>} Controller */
 /** @typedef {Record.<'GET', Object.<string, Controller>>} Route */
 /** @typedef {Object<string, Controller>} StaticRoute */
-/** @typedef {{ regex: RegExp, paramNames: string[], controller: Controller }[]} DynamicRoute */
+/** @typedef {Object<string, { regex: RegExp, paramNames: string[], controller: Controller }>} DynamicRoute */
 export {};
