@@ -4,6 +4,9 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "nodemon controllers/quizController.js"
+    "dev": "nodemon server.js"
+  },
+  "dependencies": {
+    "express": "^5.2.1"
   }
 }

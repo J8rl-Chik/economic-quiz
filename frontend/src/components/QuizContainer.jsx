@@ -1,55 +1,29 @@
-import React, { useState } from "react";
-import QuizQuestion from "./QuizQuestion.jsx";
-import Result from "./QuizResult.jsx";
-import useQuestions from "../hooks/useQuestions.js";
+import React from "react";
+import QuizQuestion from "./QuizQuestion.jsx"; // 문제 카드 UI
+import Result from "./QuizResult.jsx";         // 결과 화면
+import useQuestions from "../hooks/useQuestions.js"; // API fetch + 랜덤 5문제
+import useQuiz from "../hooks/useQuiz.js";           // 퀴즈 진행 로직
 
+// 로딩 / 진행 중 / 결과 화면 분기 담당
 function QuizContainer({ start }) {
   const { questions, loading } = useQuestions();
-  const [currentQ, setCurrentQ] = useState(0);
-  const [info, setInfo] = useState({ current: 0, wrong: 0, isCorrect: null });
-  const [answered, setAnswered] = useState(false);
+  const { currentQuestion, score, selectedIndex, answered, isEnd, isLast, handleAnswer, handleNext, handleEnd } =
+    useQuiz(questions, () => start(false));
 
   if (loading) return <p>문제를 불러오는 중...</p>;
 
-  const isEnd = currentQ >= questions.length;
-  const currentQuestion = questions[currentQ];
-
-  const chk_answer = index => {
-    const chk = index === currentQuestion.answer;
-
-    setInfo(prev => ({
-      current: chk ? prev.current + 1 : prev.current,
-      wrong: chk ? prev.wrong : prev.wrong + 1,
-      isCorrect: chk,
-    }));
-
-    setAnswered(prev => !prev);
-  };
-
-  const handleNext = () => {
-    setCurrentQ(prev => prev + 1);
-    setAnswered(prev => !prev);
-  };
-
-  const handleEnd = () => {
-    setCurrentQ(0);
-    setInfo({ current: 0, wrong: 0, isCorrect: null });
-    setAnswered(false);
-    start(false);
-  };
-
   if (isEnd) {
-    return <Result info={info} onClick={handleEnd} />;
+    return <Result score={score} onClick={handleEnd} />;
   }
 
   return (
     <QuizQuestion
       question={currentQuestion}
       answered={answered}
-      info={info}
-      onAnswer={chk_answer}
+      selectedIndex={selectedIndex}
+      onAnswer={handleAnswer}
       onNext={handleNext}
-      isLast={currentQ === questions.length - 1}
+      isLast={isLast}
     />
   );
 }

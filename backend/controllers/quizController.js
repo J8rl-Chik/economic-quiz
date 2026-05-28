@@ -1,37 +1,21 @@
-import http from "node:http";
-import router from "../router.js";
-import "../controllers/questionsController.js";
+import express from "express";
+import readQuizFile from "../services/readQuizFile.js";
 
-const SERVER = http.createServer((req, res) => {
-  res.setHeader("Access-Control-Allow-Origin", "http://localhost:5173");
-  res.setHeader("Content-Type", "application/json; charset=utf-8");
+const router = express.Router();
+const questions = await readQuizFile();
 
-  res.json = data => {
-    res.writeHead(res.statusCode || 200);
-    res.end(JSON.stringify(data));
-  };
+router.get("/", (req, res) => {
+  const { type } = req.query;
+  const result = type ? questions.filter(q => q.type === type) : questions;
+  res.json(result);
+});
 
-  res.status = code => {
-    res.statusCode = code;
-    return res;
-  };
-
-  const route = router.resolve(req.method, req.url);
-  if (route) {
-    req.params = route.params;
-    route.handler(req, res);
-    return;
+router.get("/:id", (req, res) => {
+  const question = questions.find(q => q.id === Number(req.params.id));
+  if (!question) {
+    return res.status(404).json({ message: "문제를 찾을 수 없습니다." });
   }
-
-  res.status(404).json({ message: "Not Found" });
+  res.json(question);
 });
 
-SERVER.listen(8080);
-
-SERVER.on("listening", () => {
-  console.log("Server is running on http://localhost:8080");
-});
-
-SERVER.on("error", err => {
-  console.error("Server error:", err);
-});
+export default router;

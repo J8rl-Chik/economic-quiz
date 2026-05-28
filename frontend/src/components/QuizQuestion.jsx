@@ -1,29 +1,30 @@
 import React from "react";
-import QuizButton from "./QuizButton.jsx";
+import QuizButton from "./QuizButton.jsx"; // 보기 버튼 (정답/오답 색상 처리)
+import "../css/QuizQuestion.css";
 
-function QuizQuestion({ question, answered, info, onAnswer, onNext, isLast }) {
+// 문제 카드 UI — 문제 텍스트, 보기 버튼, 해설, 다음문제 버튼
+function QuizQuestion({ question, answered, selectedIndex, onAnswer, onNext, isLast }) {
   return (
-    <>
+    <div className="card">
       <div>
-        <h1>문제</h1>
-        <p>{question.question}</p>
+        <p className="card-label">문제</p>
+        <p className="card-question">{question.question}</p>
       </div>
-      <div>
-        <QuizButton
-          choices={question.choices}
-          onAnswer={onAnswer}
-          disabled={answered}
-        />
-      </div>
-
+      {/* selectedIndex, correctIndex를 넘겨 정답/오답 색상 처리 */}
+      <QuizButton
+        choices={question.choices}
+        onAnswer={onAnswer}
+        disabled={answered}
+        selectedIndex={selectedIndex}
+        correctIndex={question.answer}
+      />
       {answered && (
-        <div>
-          <p>{info.isCorrect ? "정답입니다." : "오답입니다."}</p>
-          <p>{question.explanation}</p>
-          <button onClick={onNext}>{isLast ? "결과확인" : "다음문제"}</button>
+        <div className="card-answer">
+          <p className="card-explanation">{question.explanation}</p>
+          <button className="btn-next" onClick={onNext}>{isLast ? "결과확인" : "다음문제"}</button>
         </div>
       )}
-    </>
+    </div>
   );
 }
 

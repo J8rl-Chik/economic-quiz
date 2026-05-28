@@ -1,40 +1,29 @@
 import React, { useState } from "react";
-import QuizContainer from "./QuizContainer.jsx";
+import QuizContainer from "./QuizContainer.jsx"; // 퀴즈 진행 화면
+import useQuestions from "../hooks/useQuestions.js"; // API fetch + 랜덤 5문제
+import "../css/Quiz.css";
 
+// 시작 화면 — 퀴즈 시작 버튼, 문제 목록 출력 버튼
 function Quiz() {
   const [start, setStart] = useState(false);
-  const [questions, setQuestions] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [showList, setShowList] = useState(false); // 문제 목록 표시 여부
+  const { questions, loading } = useQuestions();
 
-  const handleFetchQuestions = async () => {
-    setLoading(true);
-    setError(null);
-    try {
-      const response = await fetch("http://localhost:8080/api/questions");
-      if (!response.ok) throw new Error("서버 응답 오류");
-      const data = await response.json();
-      setQuestions(data);
-    } catch (err) {
-      setError("문제를 불러오지 못했습니다.");
-    } finally {
-      setLoading(false);
-    }
-  };
-
+  // 퀴즈 시작 시 QuizContainer로 전환
   if (start) {
     return <QuizContainer start={setStart} />;
   }
 
   return (
-    <>
+    <div className="quiz">
       <h1>경제 퀴즈</h1>
-      <button onClick={() => setStart(true)}>퀴즈 시작</button>
-      <button onClick={handleFetchQuestions} disabled={loading}>
-        {loading ? "불러오는 중..." : "문제 출력"}
-      </button>
-      {error && <p>{error}</p>}
-      {questions && (
+      <div className="quiz-buttons">
+        <button className="btn-start" onClick={() => setStart(true)}>퀴즈 시작</button>
+        <button className="btn-quizList" onClick={() => setShowList(prev => !prev)} disabled={loading}>
+          {loading ? "불러오는 중..." : "문제 출력"}
+        </button>
+      </div>
+      {showList && questions && (
         <ul>
           {questions.map(q => (
             <li key={q.id}>
@@ -43,7 +32,7 @@ function Quiz() {
           ))}
         </ul>
       )}
-    </>
+    </div>
   );
 }
 
