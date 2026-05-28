@@ -10,7 +10,6 @@ const QUIZ_FILE_PATH = './backend/data/quiz.json';
  * */
 const loadQuizzes = async () => {
   const quizData = await fs.readFile(QUIZ_FILE_PATH, 'utf-8');
-
   /** @type {RawQuiz[]} */
   const quizzes = JSON.parse(quizData);
 

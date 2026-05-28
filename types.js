@@ -1,3 +1,5 @@
+/** @import { IncomingMessage, ServerResponse } from 'node:http' */
+
 /**
  * @typedef {Object} RawQuiz
  * @property {number} 번호 - 원본 퀴즈 번호
@@ -21,7 +23,8 @@
  * @property {string} explanation - 퀴즈 해설
  */
 
-/** @typedef {(request: import("node:http").IncomingMessage, response: import("node:http").ServerResponse, params?: Record<string, string>) => Promise<void>} HttpHandler */
-/** @typedef {Record.<'GET' | 'POST' | 'PUT' | 'DELETE', Object.<string, HttpHandler>>} QuizRouter */
-
+/** @typedef {(request: IncomingMessage, response: ServerResponse, params?: Record<string, string>) => Promise<void>} Controller */
+/** @typedef {Record.<'GET', Object.<string, Controller>>} Route */
+/** @typedef {Object<string, Controller>} StaticRoute */
+/** @typedef {{ regex: RegExp, paramNames: string[], controller: Controller }[]} DynamicRoute */
 export {};
