@@ -1,51 +1,55 @@
-/** @import { HttpHandler } from '../../types.js' */
+/** @import { Controller, Route, StaticRoute, DynamicRoute } from '../../types.js' */
 
-/** @param {import('../../types.js').QuizRouter} methodRoutes */
-const createRouter = methodRoutes => {
-  /** @type {Object<string, { staticRoutes: Object<string, HttpHandler>, dynamicRoutes: { regex: RegExp, paramNames: string[], controller: HttpHandler }[] }>} */
-  const compiled = {};
+/** @param {Route} methodRoute */
+const createRouter = methodRoute => {
+  /** @type {Object<string, { staticRoute: StaticRoute, dynamicRoutes: DynamicRoute }>} */
+  const router = {};
 
-  for (const [method, route] of Object.entries(methodRoutes)) {
-    /** @type {Object<string, HttpHandler>} */
-    const staticRoutes = {};
+  for (const [method, route] of Object.entries(methodRoute)) {
+    /** @type {StaticRoute} */
+    const staticRoute = {};
+    /** @type {DynamicRoute} */
     const dynamicRoutes = [];
 
     for (const [uri, controller] of Object.entries(route)) {
       if (uri.includes(':')) {
         const paramNames = [...uri.matchAll(/:([^/]+)/g)].map(m => m[1]);
         const regex = new RegExp(`^${uri.replace(/:([^/]+)/g, '([^/]+)')}$`);
+
         dynamicRoutes.push({regex, paramNames, controller});
       } else {
-        staticRoutes[uri] = controller;
+        staticRoute[uri] = controller;
       }
     }
 
-    compiled[method] = {staticRoutes, dynamicRoutes};
+    router[method] = {staticRoute, dynamicRoutes};
   }
 
   return {
     /** @param {string} method */
     hasMethod(method) {
-      return method in compiled;
+      return method in router;
     },
 
     /**
      * @param {string} method
      * @param {string} url
-     * @returns {{ controller: HttpHandler, params: Object<string, string> } | null}
+     * @returns {{ controller: Controller, params?: Object<string, string> } | null}
      */
     findController(method, url) {
-      const routes = compiled[method];
-      if (!routes) return null;
+      const route = router[method];
+      if (!route) return null;
 
-      if (routes.staticRoutes[url]) {
-        return {controller: routes.staticRoutes[url], params: {}};
+      if (route.staticRoute[url]) {
+        return {controller: route.staticRoute[url]};
       }
 
-      for (const {regex, paramNames, controller} of routes.dynamicRoutes) {
+      for (const {regex, paramNames, controller} of route.dynamicRoutes) {
         const urlMatch = url.match(regex);
+
         if (urlMatch) {
           const params = Object.fromEntries(paramNames.map((name, i) => [name, urlMatch[i + 1]]));
+
           return {controller, params};
         }
       }
