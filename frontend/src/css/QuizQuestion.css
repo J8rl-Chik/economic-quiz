@@ -54,3 +54,23 @@
 .btn-next:hover {
   opacity: 0.85;
 }
+
+.card-answer-buttons {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.btn-stop {
+  padding: 12px 28px;
+  border: none;
+  border-radius: 20px;
+  background: #d9d9d9;
+  color: #555;
+  font-size: 16px;
+  transition: opacity 0.2s;
+}
+
+.btn-stop:hover {
+  opacity: 0.85;
+}

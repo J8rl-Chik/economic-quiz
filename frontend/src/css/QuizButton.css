@@ -8,6 +8,10 @@
 }
 
 /* 보기 버튼 기본 스타일 */
+.quiz-button li {
+  list-style: none;
+}
+
 .quiz-button button {
   width: 100%; /* 가로 꽉 채움 */
   padding: 14px 20px;

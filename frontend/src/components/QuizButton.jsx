@@ -16,14 +16,15 @@ function QuizButton({ choices, onAnswer, disabled, selectedIndex, correctIndex }
     <div className="quiz-button">
       <ul>
         {choices.map((choice, index) => (
-          <button
-            key={index}
-            className={getClassName(index)}
-            onClick={() => onAnswer(index)}
-            disabled={disabled}
-          >
-            {choice}
-          </button>
+          <li key={index}>
+            <button
+              className={getClassName(index)}
+              onClick={() => onAnswer(index)}
+              disabled={disabled}
+            >
+              {choice}
+            </button>
+          </li>
         ))}
       </ul>
     </div>
