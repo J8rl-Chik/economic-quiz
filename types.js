@@ -21,7 +21,7 @@
  * @property {string} explanation - 퀴즈 해설
  */
 
-/** @typedef {(request: import("node:http").IncomingMessage, response: import("node:http").ServerResponse) => Promise<void>} HttpHandler */
+/** @typedef {(request: import("node:http").IncomingMessage, response: import("node:http").ServerResponse, params?: Record<string, string>) => Promise<void>} HttpHandler */
 /** @typedef {Record.<'GET' | 'POST' | 'PUT' | 'DELETE', Object.<string, HttpHandler>>} QuizRouter */
 
 export {};

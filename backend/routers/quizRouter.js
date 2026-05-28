@@ -1,25 +1,21 @@
+import getQuizByIdController from '../controllers/getQuizByIdController.js';
 import quizController from '../controllers/quizController.js';
+import createRouter from './createRouter.js';
 
-/**
- * @type {import('../../types.js').QuizRouter}
- * */
-const quizRouter = {
+const quizRouter = createRouter({
   GET: {
-    '/': quizController,
-    '/quizzes': quizController
+    '/quizzes': quizController,
+    '/quizzes/:id': getQuizByIdController
   },
   POST: {
-    '/': quizController,
     '/quizzes': quizController
   },
   PUT: {
-    '/': quizController,
     '/quizzes': quizController
   },
   DELETE: {
-    '/': quizController,
     '/quizzes': quizController
   }
-};
+});
 
 export default quizRouter;
