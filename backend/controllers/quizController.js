@@ -1,4 +1,5 @@
 import {HTTP_STATUS} from '../constants/httpStatusCode.js';
+import {SERVER_HOST} from '../constants/server.js';
 import loadQuizzes from '../services/loadQuizzes.js';
 
 /** @import { Controller } from '../../types.js' */
@@ -7,7 +8,7 @@ const quizController = {
   /** @type {Controller} */
   async getQuizzes(request, response) {
     try {
-      const {searchParams} = new URL(request.url ?? '/', 'http://localhost');
+      const {searchParams} = new URL(request.url ?? '/', SERVER_HOST);
       const isRandom = searchParams.get('random') === 'true';
       const countParam = searchParams.get('count');
       const count = countParam !== null ? Number(countParam) : null;

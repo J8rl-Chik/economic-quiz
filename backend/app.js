@@ -1,6 +1,7 @@
 import http from 'node:http';
 
 import {HTTP_STATUS} from './constants/httpStatusCode.js';
+import {SERVER_HOST, SERVER_PORT} from './constants/server.js';
 import quizRouter from './routers/quizRouter.js';
 
 const server = http.createServer();
@@ -37,10 +38,8 @@ server.on('request', async (request, response) => {
   await controller(request, response, params);
 });
 
-const SERVER_PORT = 8080;
-
 server.on('listening', () => {
-  console.log(`Server is running on http://localhost:${SERVER_PORT}`);
+  console.log(`Server is running on ${SERVER_HOST}:${SERVER_PORT}`);
 });
 
 server.on('error', error => {
