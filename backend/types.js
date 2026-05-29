@@ -27,4 +27,5 @@
 /** @typedef {Record.<'GET', Object.<string, Controller>>} Route */
 /** @typedef {Object<string, Controller>} StaticRoute */
 /** @typedef {Object<string, { regex: RegExp, paramNames: string[], controller: Controller }>} DynamicRoute */
+
 export {};
