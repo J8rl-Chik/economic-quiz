@@ -28,7 +28,7 @@ const createRouter = methodRoute => {
   return {
     /** @param {string} method */
     hasMethod(method) {
-      return method in router;
+      return Object.hasOwn(router, method);
     },
 
     /**
