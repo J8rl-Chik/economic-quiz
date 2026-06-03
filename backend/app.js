@@ -16,6 +16,13 @@ server.on('request', async (request, response) => {
     return;
   }
 
+  if (url === '/healthz') {
+    response.writeHead(HTTP_STATUS.OK, {'Content-Type': 'text/plain'});
+    response.end('OK');
+
+    return;
+  }
+
   if (!quizRouter.hasMethod(method)) {
     response.writeHead(HTTP_STATUS.METHOD_NOT_ALLOWED, {'Content-Type': 'text/plain'});
     response.end(`Method is not allowed: ${method}`);
