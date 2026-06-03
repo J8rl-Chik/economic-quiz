@@ -30,6 +30,10 @@ server.on('request', async (request, response) => {
     return;
   }
 
+  response.setHeader('Access-Control-Allow-Origin', 'http://localhost:5173/');
+  response.setHeader('Access-Control-Allow-Methods', 'GET');
+  response.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
   const [path] = url.split('?');
   const result = quizRouter.findController(method, path);
 
