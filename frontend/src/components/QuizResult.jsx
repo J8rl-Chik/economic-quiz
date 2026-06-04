@@ -10,8 +10,6 @@ import {
   WrongText
 } from '../styles/QuizResult.styles.js';
 
-// 결과 화면 — 정답/오답 개수 표시, 종료 버튼
-// score: useQuiz에서 전달받은 { current, wrong }
 function Result({score, onClick}) {
   return (
     <ResultWrapper>

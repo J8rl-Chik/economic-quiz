@@ -9,8 +9,6 @@ import {
   StopButton
 } from '../styles/QuizQuestion.styles.js';
 
-// 정답/오답 결과 화면 — QuizQuestion과 독립적으로 전체 화면에 표시
-// isCorrect: 정답 여부 → 결과 텍스트와 배경색 결정
 function QuizAnswer({isCorrect, correctAnswer, explanation, isLast, onNext, onEnd}) {
   return (
     <CardAnswerButtons>

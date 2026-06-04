@@ -1,8 +1,6 @@
 import {CardLabel, CardQuestion, CardWrapper} from '../styles/QuizQuestion.styles.js';
 import QuizButton from './QuizButton.jsx';
 
-// 문제 화면 — 문제 텍스트, 보기 버튼
-// answered: 버튼 비활성화 + 정답/오답 색상 표시용
 function QuizQuestion({question, answered, selectedIndex, onAnswer, onEnd}) {
   return (
     <CardWrapper>

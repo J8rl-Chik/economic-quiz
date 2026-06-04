@@ -6,8 +6,6 @@ import {ListButton, QuizButtonGroup, QuizWrapper, StartButton} from '../styles/Q
 import QuizContainer from './QuizContainer.jsx';
 import QuizList from './QuizList.jsx';
 
-// 시작 화면 — 퀴즈 시작 / 문제 출력 버튼 표시
-// 화면 전환 상태(start, showList)를 관리하고 데이터를 자식에게 전달
 function Quiz() {
   const [start, setStart] = useState(false);
   const [showList, setShowList] = useState(false);

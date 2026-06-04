@@ -1,8 +1,6 @@
-// QuizQuestion.jsx / QuizAnswer.jsx 스타일 — MUI styled()로 CSS 역할 분리
 import {styled} from '@mui/material';
 import {Box, Button, Typography} from '@mui/material';
 
-// 문제 화면 전체 컨테이너 — 모바일: 전체 화면 / 태블릿+: 중앙 정렬 + 최대 너비
 export const CardWrapper = styled(Box)(({theme}) => ({
   minHeight: '100dvh',
   display: 'flex',
@@ -54,7 +52,6 @@ export const CardExplanation = styled(Box)(({theme}) => ({
   }
 }));
 
-// QuizAnswer 전체 화면 컨테이너 — QuizQuestion과 독립적으로 전환되는 화면
 export const CardAnswerButtons = styled(Box)({
   minHeight: '100dvh',
   display: 'flex',
@@ -65,7 +62,6 @@ export const CardAnswerButtons = styled(Box)({
   gap: '16px'
 });
 
-// 정답/오답에 따라 배경색이 달라지는 결과 영역
 export const AnswerResult = styled(Box)(({isCorrect}) => ({
   backgroundColor: isCorrect ? '#e8f5e9' : '#fce4ec',
   borderRadius: '12px',
@@ -75,7 +71,6 @@ export const AnswerResult = styled(Box)(({isCorrect}) => ({
   gap: '12px'
 }));
 
-// 정답/오답에 따라 색상이 달라지는 결과 텍스트
 export const AnswerResultText = styled(Box)(({isCorrect}) => ({
   fontSize: '1.25rem',
   fontWeight: 'bold',
@@ -95,7 +90,6 @@ export const AnswerExplanation = styled(Box)({
   lineHeight: 1.6
 });
 
-// 종료/다음문제 버튼 좌우 배치 컨테이너
 export const AnswerButtons = styled(Box)({
   display: 'flex',
   justifyContent: 'space-between',

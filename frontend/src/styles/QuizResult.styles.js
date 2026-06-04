@@ -1,8 +1,6 @@
-// QuizResult.jsx 결과 화면 스타일 — MUI styled()로 CSS 역할 분리
 import {styled} from '@mui/material';
 import {Box, Button, Typography} from '@mui/material';
 
-// 결과 화면 전체 컨테이너
 export const ResultWrapper = styled(Box)(({theme}) => ({
   minHeight: '100dvh',
   display: 'flex',
