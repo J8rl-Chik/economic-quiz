@@ -10,10 +10,10 @@ function QuizQuestion({question, answered, selectedIndex, onAnswer, onEnd}) {
       </div>
 
       <QuizButton
-        choices={question.choices}
         onAnswer={onAnswer}
         disabled={answered}
         selectedIndex={selectedIndex}
+        choices={question.choices}
         correctIndex={question.answer}
       />
     </CardWrapper>

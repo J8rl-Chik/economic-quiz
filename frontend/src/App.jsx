@@ -1,7 +1,7 @@
-import Quiz from './components/Quiz.jsx';
+import EconomicQuiz from './components/EconomicQuiz.jsx';
 
 function App() {
-  return <Quiz />;
+  return <EconomicQuiz />;
 }
 
 export default App;

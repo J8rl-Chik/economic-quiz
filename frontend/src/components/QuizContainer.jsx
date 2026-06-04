@@ -1,48 +1,24 @@
+import {useState} from 'react';
+
 import useQuiz from '../hooks/useQuiz.js';
+import useQuizzes from '../hooks/useQuizzes.js';
+import Quiz from './Quiz.jsx';
 import QuizAnswer from './QuizAnswer.jsx';
-import QuizQuestion from './QuizQuestion.jsx';
 import Result from './QuizResult.jsx';
 
-function QuizContainer({onExit, questions}) {
-  const {
-    currentQuestion,
-    score,
-    selectedIndex,
-    answered,
-    isCorrect,
-    showAnswer,
-    isEnd,
-    isLast,
-    handleAnswer,
-    handleNext
-  } = useQuiz(questions);
+function QuizContainer({onExit}) {
+  const {quizzes, isLoading, setIsLoading} = useQuizzes();
+  const [quizIndex, setQuizIndex] = useState(0);
 
-  if (isEnd) {
-    return <Result score={score} onClick={onExit} />;
+  if (isLoading) {
+    setIsLoading(false);
+
+    return <div>Loading...</div>;
   }
 
-  if (showAnswer) {
-    return (
-      <QuizAnswer
-        isCorrect={isCorrect}
-        correctAnswer={currentQuestion.choices[currentQuestion.answer]}
-        explanation={currentQuestion.explanation}
-        isLast={isLast}
-        onNext={handleNext}
-        onEnd={onExit}
-      />
-    );
+  if (quizzes.length !== 0) {
+    return <Quiz quiz={quizzes[quizIndex]} />;
   }
-
-  return (
-    <QuizQuestion
-      question={currentQuestion}
-      answered={answered}
-      selectedIndex={selectedIndex}
-      onAnswer={handleAnswer}
-      onEnd={onExit}
-    />
-  );
 }
 
 export default QuizContainer;
