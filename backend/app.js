@@ -1,16 +1,13 @@
 import cors from 'cors';
 import express from 'express';
 
+import {CORS_OPTIONS} from './constants/cors.js';
 import {SERVER} from './constants/server.js';
 import quizRouter from './routers/quizRouter.js';
 
 const app = express();
-const corsOptions = {
-  origin: ['http://localhost:5173', 'https://economic-quiz-seven.vercel.app'],
-  methods: 'GET'
-};
 
-app.use(cors(corsOptions));
+app.use(cors(CORS_OPTIONS));
 app.use('/quizzes', quizRouter);
 
 app.get('/healthz', (_request, response) => {
