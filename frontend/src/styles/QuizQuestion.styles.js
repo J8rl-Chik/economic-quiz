@@ -78,19 +78,23 @@ export const SubmitButton = styled(PrimaryButton)({
 // ──────────────────────────────────────────────
 
 // 해설 화면 전체를 감싸는 레이아웃 컨테이너
+// height: '100dvh' + overflow: 'hidden' — 화면 높이를 고정하고, 내부 스크롤은 ExplanationCard에서만 발생하도록 함
 // padding: '32px 16px 0' — 하단 padding을 0으로 설정해 AnswerButtons의 sticky가 정확히 바닥에 붙도록 함
 export const CardAnswerButtons = styled(Box)({
-  minHeight: '100dvh',
+  height: '100dvh',
   display: 'flex',
   flexDirection: 'column',
   backgroundColor: '#f0f4ff',
   padding: '32px 16px 0',
   gap: '16px',
-  boxSizing: 'border-box'
+  boxSizing: 'border-box',
+  overflow: 'hidden'
 });
 
 // 정답/오답 결과를 표시하는 카드
 // isCorrect prop에 따라 배경색이 동적으로 변경됨 (초록 계열 / 빨간 계열)
+// position: 'sticky' + top: 0 — 화면 상단에 고정
+// flexShrink: 0 — ExplanationCard가 줄어들어도 이 카드의 높이는 유지
 export const AnswerResult = styled(Box)(({isCorrect}) => ({
   backgroundColor: isCorrect ? '#f0faf4' : '#fff5f5',
   borderRadius: '20px',
@@ -98,7 +102,10 @@ export const AnswerResult = styled(Box)(({isCorrect}) => ({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  gap: '8px'
+  gap: '8px',
+  position: 'sticky',
+  top: 0,
+  flexShrink: 0
 }));
 
 // 정답/오답 아이콘을 감싸는 원형 배경
@@ -117,12 +124,16 @@ export const AnswerResultText = styled(Box)(({isCorrect}) => ({
 
 // 해설 내용을 감싸는 흰색 카드
 // flexGrow: 1 — 해설이 짧아도 남은 공간을 채워 버튼이 항상 하단으로 밀리도록 함
+// minHeight: 0 — flex item이 내용 길이만큼 늘어나지 않고 부모 높이에 맞춰지도록 함 (overflow 동작의 전제조건)
+// overflowY: 'auto' — 해설이 길 경우 카드 내부에서만 스크롤
 export const ExplanationCard = styled(Box)({
   backgroundColor: 'white',
   borderRadius: '16px',
   padding: '20px',
   boxShadow: '0 2px 8px rgba(0,0,0,0.05)',
-  flexGrow: 1
+  flexGrow: 1,
+  minHeight: 0,
+  overflowY: 'auto'
 });
 
 // 종료/다음 버튼을 감싸는 행 컨테이너
