@@ -1,11 +1,10 @@
-import quizController from '../controllers/quizController.js';
-import createRouter from './createRouter.js';
+import express from 'express';
 
-const quizRouter = createRouter({
-  GET: {
-    '/quizzes': quizController.getQuizzes,
-    '/quizzes/:id': quizController.getQuizById
-  }
-});
+import quizController from '../controllers/quizController.js';
+
+const quizRouter = express.Router();
+
+quizRouter.get('/', quizController.getQuizzes);
+quizRouter.get('/:id', quizController.getQuizById);
 
 export default quizRouter;
