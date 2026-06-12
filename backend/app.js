@@ -15,8 +15,10 @@ app.get('/healthz', (_request, response) => {
 });
 
 const server = app.listen(SERVER.PORT, () => {
+  console.log(`repository: https://github.com/economic-quiz-app/economic-quiz`);
   console.log(`Server is running on ${SERVER.HOST}:${SERVER.PORT}`);
-  console.log(`https://github.com/economic-quiz-app/economic-quiz`);
+  console.log(`url: https://quiz-api-jpp7.onrender.com`);
+  console.log('web: https://economic-quiz.netlify.app');
 });
 
 server.on('error', error => {
