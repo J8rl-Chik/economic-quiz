@@ -16,6 +16,7 @@ app.get('/healthz', (_request, response) => {
 
 const server = app.listen(SERVER.PORT, () => {
   console.log(`Server is running on ${SERVER.HOST}:${SERVER.PORT}`);
+  console.log(`https://github.com/economic-quiz-app/economic-quiz`);
 });
 
 server.on('error', error => {
